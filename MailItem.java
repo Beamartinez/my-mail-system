@@ -8,26 +8,40 @@
 public class MailItem
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private String from;
+    private String to;
+    private String message;
 
     /**
      * Constructor for objects of class MailItem
      */
-    public MailItem()
+    public MailItem(String From, String To, String Message)
     {
         // initialise instance variables
-        x = 0;
+        from = From;
+        to = To;
+        message = Message;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
+    
+    public String getFrom()
     {
-        // put your code here
-        return x + y;
+        return from;
+    }
+    
+    public String getTo()
+    {
+        return to;
+    }
+    
+    public String getMessage()
+    {
+        return message;
+    }
+    
+    public void print()
+    {
+        System.out.println("From: " + from);
+        System.out.println("To: " + to);
+        System.out.println("Message: " + message);
     }
 }
