@@ -15,7 +15,7 @@ public class MailClient
     /**
      * Constructor de la clase MailClient
      */
-    public MailClient(MailServer newServer, String newUser)
+    public MailClient(MailServer server, String user)
     {
         this.server = server;
         this.user = user;
@@ -26,7 +26,12 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-        return server.getNextMailItem(user);
+        MailItem item = server.getNextMailItem(user);
+        if(item == null)
+        {
+            System.out.println("No hay mensajes nuevos");
+        }
+        return item;
     }
     
     /**
@@ -36,12 +41,12 @@ public class MailClient
      */
     public void printNextMailItem()
     {
-        MailItem email = server.getNextMailItem(user);
-        if(email == null) {
+        MailItem item = server.getNextMailItem(user);
+        if(item == null) {
             System.out.println("No hay mensajes nuevos");
         }
         else {
-            email.print();
+            item.print();
         }
         
     }
@@ -52,8 +57,15 @@ public class MailClient
      */
     public void sendMailItem(String address, String message, String subject)
     {
-        MailItem emailToSend = new MailItem(user, address, message, subject);
-        server.post(emailToSend);
+        MailItem itemNew = new MailItem(user, address, message, subject);
+        server.post(itemNew);
     }
+    
+    public void howManyMailItems()
+    {
+        System.out.println("Tienes " + server.howManyMailItems(user) + " mensajes nuevos");
+    }
+    
+
 
 }
