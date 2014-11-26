@@ -15,10 +15,10 @@ public class MailClient
     /**
      * Constructor de la clase MailClient
      */
-    public MailClient(MailServer Server, String User)
+    public MailClient(MailServer newServer, String newUser)
     {
-        this.server = Server;
-        this.user = User;
+        this.server = server;
+        this.user = user;
     }
     
     /**

@@ -19,13 +19,12 @@ public class MailItem
     /**
      * Constructor de la clase MailItem
      */
-    public MailItem(String From, String To, String Message, String Subject)
+    public MailItem(String newFrom, String newTo, String newMessage, String newSubject)
     {
-        this.from = From;
-        this.to = To;
-        this.message = Message;
-        this.subject = Subject;
-        this.subject = Subject;
+        this.from = newFrom;
+        this.to = newTo;
+        this.message = newMessage;
+        this.subject = newSubject;
     }
     
     /**
