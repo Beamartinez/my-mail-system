@@ -25,6 +25,7 @@ public class MailItem
         this.to = To;
         this.message = Message;
         this.subject = Subject;
+        this.subject = Subject;
     }
     
     /**
