@@ -66,11 +66,16 @@ public class MailClient
         System.out.println("Tienes " + server.howManyMailItems(user) + " mensajes nuevos");
     }
     
+    /*
+     * Metodo que responde automaticamente cuando el user esta de vacaciones
+     */
     public void getNextMailItemAndAutorespond()
     {
+        //Este es el ultimo mensaje
         MailItem item = server.getNextMailItem(user);
+        //Reenvio el asunto
         String newSubject = "RE: " + item.getSubject();
-        String newMessage = "" + item.getMessage() + "\n RESPUESTA AUTOMATICA \n ESTAMOS DE VACACIONES";
+        String newMessage = "" + item.getMessage() + "ESTAMOS DE VACACIONES";
         MailItem newMail = new MailItem(item.getTo(), item.getFrom(), newSubject, newMessage);
         server.post(newMail);
     }
