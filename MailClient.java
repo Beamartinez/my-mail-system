@@ -11,6 +11,7 @@ public class MailClient
     private MailServer server;
     //Almacena la dirección de correo del usuario que usa el cliente
     private String user;
+    private MailItem lastMailItem;
 
     /**
      * Constructor de la clase MailClient
@@ -31,6 +32,7 @@ public class MailClient
         {
             System.out.println("No hay mensajes nuevos");
         }
+        lastMailItem = item;
         return item;
     }
     
@@ -48,7 +50,7 @@ public class MailClient
         else {
             item.print();
         }
-        
+        lastMailItem = item;
     }
     
     
@@ -61,6 +63,10 @@ public class MailClient
         server.post(itemNew);
     }
     
+    /*
+     * Metodo que imprime por pantalla los mensajes que tiene el usuario 
+     * que esta utilizando el cliente
+     */
     public void howManyMailItems()
     {
         System.out.println("Tienes " + server.howManyMailItems(user) + " mensajes nuevos");
@@ -73,11 +79,20 @@ public class MailClient
     {
         //Este es el ultimo mensaje
         MailItem item = server.getNextMailItem(user);
-        //Reenvio el asunto
-        String newSubject = "RE: " + item.getSubject();
-        String newMessage = "" + item.getMessage() + "ESTAMOS DE VACACIONES";
-        MailItem newMail = new MailItem(item.getTo(), item.getFrom(), newSubject, newMessage);
-        server.post(newMail);
+        if (item != null)
+        {
+            String newTo = item.getFrom();
+            String newSubject = "RE: " + item.getSubject();
+            String newMessage = "ESTAMOS DE VACACIONES" + "\n" + item.getMessage();
+            MailItem newMail = new MailItem(user, newTo, newMessage, newSubject);
+            server.post(newMail);
+        }
+    }
+    
+    
+    public void printLastMailItem()
+    {
+        System.out.println("El ultimo mensaje es este: " + lastMailItem);
     }
 
 }
