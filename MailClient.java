@@ -12,6 +12,7 @@ public class MailClient
     //Almacena la dirección de correo del usuario que usa el cliente
     private String user;
     private MailItem lastMailItem;
+    private boolean siSpam;
 
     /**
      * Constructor de la clase MailClient
@@ -20,6 +21,8 @@ public class MailClient
     {
         this.server = server;
         this.user = user;
+        //Vemos si el mensaje guardado es spam o no
+        siSpam();
     }
     
     /**
@@ -92,7 +95,54 @@ public class MailClient
     
     public void printLastMailItem()
     {
-        System.out.println("El ultimo mensaje es este: " + lastMailItem);
+         lastMailItem.print();  
+    }
+    
+    /*
+     * Imprime por pantalla el email
+     */
+    public void print()
+    {
+        if(lastMailItem != null & (siSpam == true))
+        {
+            printSpam();
+        }
+        else if(lastMailItem != null & (siSpam == false))
+        {
+            lastMailItem.print();
+        }
+        else
+        {
+            System.out.println("No hay mensajes sin abrir");
+        }
+    }
+    
+    /*
+     * Nos dice si un email es spam o no y lo marca como sea
+     */
+    public void siSpam()
+    {
+        siSpam = false;
+        if(lastMailItem != null)
+        {
+            String message = lastMailItem.getMessage();
+            if(message.indexOf("proyecto") != 1)
+            {
+                siSpam = false;
+            }
+            else if((message.indexOf("oferta") != -1) | (message.indexOf("viagra") != -1))
+            {
+                siSpam = true;
+            }
+        }
+    }
+    
+    /*
+     * Imprime por pantalla el email spam
+     */
+    public void printSpam()
+    {
+        System.out.println("Subject: spam" + "\n" + "Message: spam");
     }
 
 }
