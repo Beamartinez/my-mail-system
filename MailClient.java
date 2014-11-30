@@ -12,6 +12,7 @@ public class MailClient
     //Almacena la dirección de correo del usuario que usa el cliente
     private String user;
     private MailItem lastMailItem;
+    private MailItem lastMailSpam;
     private boolean siSpam;
     private int countOfEnviar;
     private int countOfRecibir;
@@ -75,6 +76,7 @@ public class MailClient
     {
         MailItem itemNew = new MailItem(user, address, message, subject);
         server.post(itemNew);
+        countOfEnviar = countOfEnviar + 1;
     }
     
     /*
@@ -173,4 +175,15 @@ public class MailClient
                             "Remitente con email más largo: " + longEmail);
     }
     
+    public void printLastMailSpam()
+    {
+        if(lastMailSpam != null)
+        {
+            lastMailSpam.print();
+        }
+        else
+        {
+            System.out.println("No hay mensajes de spam");
+        }
+    }
 }
