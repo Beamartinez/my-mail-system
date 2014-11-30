@@ -13,6 +13,12 @@ public class MailClient
     private String user;
     private MailItem lastMailItem;
     private boolean siSpam;
+    private int countOfEnviar;
+    private int countOfRecibir;
+    private int countOfSpam;
+    private int nCaracteres;
+    private String longEmail;
+    
 
     /**
      * Constructor de la clase MailClient
@@ -23,6 +29,11 @@ public class MailClient
         this.user = user;
         //Vemos si el mensaje guardado es spam o no
         siSpam();
+        countOfEnviar = 0;
+        countOfRecibir = 0;
+        countOfSpam = 0;
+        nCaracteres = 0;
+        longEmail = "";
     }
     
     /**
@@ -130,7 +141,7 @@ public class MailClient
             {
                 siSpam = false;
             }
-            else if((message.indexOf("oferta") != -1) | (message.indexOf("viagra") != -1))
+            else if((message.indexOf("oferta") != 1) | (message.indexOf("viagra") != 1))
             {
                 siSpam = true;
             }
@@ -145,4 +156,21 @@ public class MailClient
         System.out.println("Subject: spam" + "\n" + "Message: spam");
     }
 
+    public void datosEmail()
+    {
+        float datosSpam;
+        if(countOfRecibir != 0)
+        {
+            datosSpam = ((float)countOfSpam/countOfRecibir) * (100);
+        }
+        else
+        {
+            datosSpam = 0;
+        }
+        System.out.println("Mensajes enviados: " + countOfEnviar + "\n" + 
+                            "Mensajes recibidos: " + countOfRecibir + "\n" +
+                            "Porcentaje de spam: " + datosSpam + "%" + "\n" +
+                            "Remitente con email más largo: " + longEmail);
+    }
+    
 }
